@@ -12,3 +12,12 @@ function something()
         $('body').append(localStorage.getItem(localStorage.key(i)));
     }
 }
+
+function add_to_cart(id)
+{
+    var key = 'product_' + id;
+    
+    var qty = window.localStorage.getItem(key);
+    qty = qty * 1 + 1;
+    window.localStorage.setItem(key + id, qty);
+}
