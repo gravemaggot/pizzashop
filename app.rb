@@ -17,6 +17,10 @@ get '/' do
 end
 
 get '/about' do
-  @encoded_file = Base64.encode64(File.open("./public/media/examples/01. The World Is Yours.mp3", "rb").read)
+  @encoded_file = Base64.encode64(File.open('./public/media/examples/01. The World Is Yours.mp3', 'rb').read)
   erb :about
+end
+
+post '/cart' do
+  erb 'Hello!'
 end
