@@ -20,3 +20,28 @@
       </tbody>
     </table>
 </div>
+  <div class="form-group">
+    <label>Ваше имя</label>
+    <input name = "username" type="text" class="form-control" placeholder="Введите ваше имя" value = "<%= @username %>">
+  </div>
+  <div class="form-group">
+    <label>Ваш телефон</label>
+    <input id = "phone" name = "phone" type="text" class="form-control" placeholder="+375 (99) 999-99-99" value = "<%= @phone %>">
+  </div>
+  <div class="form-group">
+    <label>Адрес доставки</label>
+    <input name = "adress" type="text" class="form-control" placeholder="Введите адрес доставки" value = "<%= @adress %>">
+  </div>
+<form action="/submit_cart" method="post">
+	<input id="orders_input" name="orders" type="hidden" value=<%= @pizzas %> />
+	<input id="orders_button" type="submit" class="btn btn-primary btn-lg" value="Заказать" />
+</form>
+
+
+<script type="text/javascript">
+
+$(function () {
+    update_orders_button();
+})
+
+</script>
