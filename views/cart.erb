@@ -1,0 +1,22 @@
+<h2>Ваш заказ:</h2>
+<div class="bs-example" data-example-id="contextual-table">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Пицца</th>
+          <th>Количество</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% num = 0; @results.each do |row| %>
+        <% num = num + 1; %>
+          <tr>
+            <th scope="row"><%= num %></th>
+              <td><%= row[:name] %></td>
+              <td><%= row[:cnt]    %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+</div>

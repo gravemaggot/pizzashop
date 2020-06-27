@@ -22,5 +22,22 @@ get '/about' do
 end
 
 post '/cart' do
-  erb 'Hello!'
+  pizzas = params[:orders]
+
+  if pizzas == nil
+    erb 'Ваш заказ пуст.'
+    return
+  end
+
+  @results = []
+
+  pizzas.split(',').each do |pzz|
+    pzz_id = pzz.split('=')[0].split('product_')[1].to_i
+    cnt    = pzz.split('=')[1].to_i
+
+    @results[@results.count] = { :name => Product.find(pzz_id).description, :cnt => cnt }
+    puts @results
+  end
+
+  erb :cart
 end
