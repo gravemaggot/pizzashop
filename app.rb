@@ -30,11 +30,11 @@ get '/about' do
 end
 
 post '/cart' do
+  @new_order = Order.new
   @pizzas = params[:orders]
 
-  if @pizzas.nil? 
-    erb 'Ваш заказ пуст.'
-    return
+  if @pizzas.nil? || @pizzas == ''
+    return erb 'Ваш заказ пуст!'
   end
 
   @results = get_pizzas_result(@pizzas)
@@ -55,13 +55,21 @@ post '/submit_cart' do
 end
 
 def get_pizzas_result(pizzas_string)
+  pizzas_string.nil? do
+    return []
+  end
+
+  puts pizzas_string
+
   results = []
 
   pizzas_string.split(',').each do |pzz|
     pzz_id = pzz.split('=')[0].split('product_')[1].to_i
     cnt    = pzz.split('=')[1].to_i
 
-    results[results.count] = { :name => Product.find(pzz_id).description, :cnt => cnt }
+    if Product.exists?( id: pzz_id )
+      results[results.count] = { :name => Product.find(pzz_id).description, :cnt => cnt }
+    end
   end
 
   results
