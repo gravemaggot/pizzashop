@@ -20,20 +20,20 @@
       </tbody>
     </table>
 </div>
+<form action="/submit_cart" method="post">
   <div class="form-group">
     <label>Ваше имя</label>
-    <input name = "username" type="text" class="form-control" placeholder="Введите ваше имя" value = "<%= @username %>">
+    <input name = "order[username]" type="text" class="form-control" placeholder="Введите ваше имя" value = "<%= @new_order.username %>">
   </div>
   <div class="form-group">
     <label>Ваш телефон</label>
-    <input id = "phone" name = "phone" type="text" class="form-control" placeholder="+375 (99) 999-99-99" value = "<%= @phone %>">
+    <input id = "phone" name = "order[phone]" type="text" class="form-control" placeholder="+375 (99) 999-99-99" value = "<%= @new_order.phone %>">
   </div>
   <div class="form-group">
     <label>Адрес доставки</label>
-    <input name = "adress" type="text" class="form-control" placeholder="Введите адрес доставки" value = "<%= @adress %>">
+    <input name = "order[adres]" type="text" class="form-control" placeholder="Введите адрес доставки" value = "<%= @new_order.adres %>">
   </div>
-<form action="/submit_cart" method="post">
-	<input id="orders_input" name="orders" type="hidden" value=<%= @pizzas %> />
+	<input id="orders_input" name="order[orders]" type="hidden" value=<%= @pizzas %> />
 	<input id="orders_button" type="submit" class="btn btn-primary btn-lg" value="Заказать" />
 </form>
 

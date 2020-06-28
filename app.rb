@@ -8,7 +8,15 @@ require 'base64'
 
 set :database, 'sqlite3:pizzashop.db'
 
+# Classes
 class Product < ActiveRecord::Base
+end
+
+class Order < ActiveRecord::Base
+  validates :username, presence: true, length: { minimum: 3 }
+  validates :phone, presence: true
+  validates :adres, presence: true
+  validates :orders, presence: true
 end
 
 get '/' do
@@ -24,20 +32,37 @@ end
 post '/cart' do
   @pizzas = params[:orders]
 
-  if @pizzas == nil
+  if @pizzas.nil? 
     erb 'Ваш заказ пуст.'
     return
   end
 
-  @results = []
+  @results = get_pizzas_result(@pizzas)
+  erb :cart
+end
 
-  @pizzas.split(',').each do |pzz|
+post '/submit_cart' do
+  @new_order = Order.new params[:order]
+  if @new_order.save 
+    erb "Ваш заказ принят!<script type='text/javascript'> window.localStorage.clear() </script>"
+  else
+    @pizzas  = params[:order][:orders]
+    @results = get_pizzas_result(@pizzas)
+    @error   = @new_order.errors.full_messages.first
+
+    erb :cart
+  end
+end
+
+def get_pizzas_result(pizzas_string)
+  results = []
+
+  pizzas_string.split(',').each do |pzz|
     pzz_id = pzz.split('=')[0].split('product_')[1].to_i
     cnt    = pzz.split('=')[1].to_i
 
-    @results[@results.count] = { :name => Product.find(pzz_id).description, :cnt => cnt }
-    puts @results
+    results[results.count] = { :name => Product.find(pzz_id).description, :cnt => cnt }
   end
 
-  erb :cart
+  results
 end
