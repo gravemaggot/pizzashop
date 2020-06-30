@@ -45,7 +45,7 @@
   </div>
   <div class="form-group">
     <label>Адрес доставки</label>
-    <input name = "order[adres]" type="text" class="form-control" placeholder="Введите адрес доставки" value = "<%= @new_order.adres %>">
+    <textarea name = "order[adres]" type="text" class="form-control" placeholder="Введите адрес доставки"><%= @new_order.adres %></textarea>
   </div>
 	<input id="orders_input" name="order[orders]" type="hidden" value=<%= @pizzas %> />
 	<input id="orders_button" type="submit" class="btn btn-primary btn-lg" value="Заказать" />
