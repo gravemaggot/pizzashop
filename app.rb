@@ -67,8 +67,9 @@ def get_pizzas_result(pizzas_string)
     pzz_id = pzz.split('=')[0].split('product_')[1].to_i
     cnt    = pzz.split('=')[1].to_i
 
-    if Product.exists?( id: pzz_id )
-      results[results.count] = { :name => Product.find(pzz_id).description, :cnt => cnt }
+    if Product.exists?(id: pzz_id)
+      pzz_name = Product.find(pzz_id).description
+      results[results.count] = { name: pzz_name, cnt: cnt }
     end
   end
 
