@@ -37,7 +37,7 @@ post '/cart' do
     return erb 'Ваш заказ пуст!'
   end
 
-  @results = get_pizzas_result(@pizzas)
+  @results = parse_pizzas(@pizzas)
   erb :cart
 end
 
@@ -47,30 +47,25 @@ post '/submit_cart' do
     erb "Ваш заказ принят!<script type='text/javascript'> window.localStorage.clear() </script>"
   else
     @pizzas  = params[:order][:orders]
-    @results = get_pizzas_result(@pizzas)
+    @results = parse_pizzas(@pizzas)
     @error   = @new_order.errors.full_messages.first
 
     erb :cart
   end
 end
 
-def get_pizzas_result(pizzas_string)
-  pizzas_string.nil? do
-    return []
-  end
-
-  puts pizzas_string
-
+def parse_pizzas(pizzas_string)
   results = []
+  pizzas_string ||= ''
 
   pizzas_string.split(',').each do |pzz|
     pzz_id = pzz.split('=')[0].split('product_')[1].to_i
     cnt    = pzz.split('=')[1].to_i
 
-    if Product.exists?(id: pzz_id)
-      pzz_name = Product.find(pzz_id).description
-      results[results.count] = { name: pzz_name, cnt: cnt }
-    end
+    next unless Product.exists? id: pzz_id
+
+    obj = Product.find(pzz_id)
+    results[results.count] = { name: obj.title, price: obj.price, cnt: cnt }
   end
 
   results

@@ -1,4 +1,4 @@
-<h2>Welcome to Pizza Shop!</h2>
+<h2>Добро пожаловать в магазин пиццы!</h2>
 
 <div class="row">
 
@@ -14,20 +14,18 @@
             <%= p.description %>
         </div>
         <div>
-            Size: <%= p.size %> cm
+            Размер: <%= p.size %> см
         </div>
         <div>
-            Price: <%= p.price %> BYN
+            Цена: <%= p.price %> рублей
         </div>
         <div>
-            <button class="btn btn-sm btn-success" onclick="add_to_cart(<%= p.id %>)">Add to cart!</button>
+            <button class="btn btn-sm btn-success" onclick="add_to_cart(<%= p.id %>)">Добавить в заказ!</button>
         </div>
     </div>
     <% end %>
 
 </div>
-
-<button class="btn btn-primary" onclick="something()">Click me!</button>
 
 <script type="text/javascript">
 

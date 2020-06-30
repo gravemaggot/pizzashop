@@ -6,17 +6,31 @@
           <th>#</th>
           <th>Пицца</th>
           <th>Количество</th>
+          <th>Цена</th>
+          <th>Сумма</th>
         </tr>
       </thead>
       <tbody>
-        <% num = 0; @results.each do |row| %>
+        <% num = 0; total_pice = 0; total_count = 0; @results.each do |row| %>
         <% num = num + 1; %>
           <tr>
             <th scope="row"><%= num %></th>
               <td><%= row[:name] %></td>
               <td><%= row[:cnt]    %></td>
+              <td><%= row[:price]    %></td>
+              <td><%= row[:price] * row[:cnt] %></td>
+              <% total_pice += row[:price] * row[:cnt] %>
+              <% total_count += row[:cnt] %>
           </tr>
         <% end %>
+
+        <tr>
+          <th></th>
+            <td>Всего пицц: </td>
+            <td><b><%= total_count %></b></td>
+            <td>На сумму: </td>
+            <td><b><%= total_pice %></b></td>
+        </tr>
       </tbody>
     </table>
 </div>
