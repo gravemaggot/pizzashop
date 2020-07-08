@@ -1,0 +1,8 @@
+<h2>Заказы:</h2>
+<%@orders.each do |row| %>
+    <br><li><%= row.created_at %>. <%= row.username %>,телефон: <%= row.phone %>, адрес: <%= row.adres %>. Товары: 
+    <% pzzs = []; parse_pizzas(row.orders).each do |pzz| %>
+        <% pzzs << "#{pzz[:name]} x #{pzz[:cnt]}, на сумму: #{pzz[:price] * pzz[:cnt]}" %>
+    <% end %>
+    <%= pzzs.join(', ') %>
+<% end %>

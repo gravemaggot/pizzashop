@@ -60,6 +60,11 @@ get '/cart_is_empty' do
   erb :cart_is_empty
 end
 
+get '/admin' do
+  @orders = Order.order(id: :desc)
+  erb :admin
+end
+
 def parse_pizzas(pizzas_string)
   results = []
   pizzas_string ||= ''
