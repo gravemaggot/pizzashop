@@ -34,7 +34,7 @@ post '/cart' do
   @pizzas = params[:orders]
 
   if @pizzas.nil? || @pizzas == ''
-    return erb 'Ваш заказ пуст!'
+    return erb :cart_is_empty
   end
 
   @results = parse_pizzas(@pizzas)
@@ -42,9 +42,11 @@ post '/cart' do
 end
 
 post '/submit_cart' do
+  return redirect to :cart_is_empty if params[:order][:orders] == ''
+
   @new_order = Order.new params[:order]
-  if @new_order.save 
-    erb "Ваш заказ принят!<script type='text/javascript'> window.localStorage.clear() </script>"
+  if @new_order.save
+    redirect to :cart_is_empty
   else
     @pizzas  = params[:order][:orders]
     @results = parse_pizzas(@pizzas)
@@ -52,6 +54,10 @@ post '/submit_cart' do
 
     erb :cart
   end
+end
+
+get '/cart_is_empty' do
+  erb :cart_is_empty
 end
 
 def parse_pizzas(pizzas_string)

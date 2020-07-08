@@ -1,4 +1,5 @@
 <h2>Ваш заказ:</h2>
+<div id="cart">
 <div class="bs-example" data-example-id="contextual-table">
     <table class="table">
       <thead>
@@ -48,13 +49,15 @@
     <textarea name = "order[adres]" type="text" class="form-control" placeholder="Введите адрес доставки"><%= @new_order.adres %></textarea>
   </div>
 	<input id="orders_input" name="order[orders]" type="hidden" value=<%= @pizzas %> />
-	<input id="orders_button" type="submit" class="btn btn-primary btn-lg" value="Заказать" />
+	<input id="orders_submit" type="submit" class="btn btn-success btn-lg" onclick="return true;" value="Заказать" />
+  <input id="orders_cancel" type="submit" class="btn btn-danger btn-lg" onclick="return cancel_order();" value="Отмена" />
 </form>
-
+</div>
 
 <script type="text/javascript">
 
 $(function () {
+    $("#phone").mask("+375 (99) 999-99-99");
     update_orders_button();
 })
 

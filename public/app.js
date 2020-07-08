@@ -70,3 +70,16 @@ function cart_get_orders()
 
     return orders;
 }
+
+function cancel_order() 
+{
+    window.localStorage.clear();
+    
+    update_orders_input();
+    update_orders_button();
+
+    $('#orders_input').text('');
+    $('#cart').text('Ваш заказ пуст!');
+    
+    return true;
+}
